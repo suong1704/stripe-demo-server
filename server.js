@@ -4,11 +4,10 @@ const { resolve } = require("path");
 
 const cors = require("cors");
 
-// Sử dụng module cors
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
-// Replace if using a different env file or config
+
 const env = require("dotenv").config({ path: "./.env" });
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -28,16 +27,6 @@ app.get("/config", (req, res) => {
 
 app.post("/create-payment-intent", async (req, res) => {
   try {
-    // const { amount } = req.body;
-
-    // if (!amount) {
-    //   return res.status(400).send({
-    //     error: {
-    //       message: "Currency and amount are required.",
-    //     },
-    //   });
-    // }
-
     const { amount } = req.body;
 
     // Create a PaymentIntent with the order amount and currency
